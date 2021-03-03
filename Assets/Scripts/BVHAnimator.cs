@@ -72,7 +72,6 @@ public class BVHAnimator : MonoBehaviour
     public bool interpolate = true;
     public float positionScale = 1;
     public string path;
-    public Animator anim;
     [ReadOnly] public int fps = 0;
     [ReadOnly] public int frames = 0;
     public int currentFrame = 0;
@@ -198,7 +197,7 @@ public class BVHAnimator : MonoBehaviour
     { 
         foreach (var bvhJoint in joints.Values)
         {
-            var trans = FindObjectsOfType<GameObject>().FirstOrDefault(g => g.name == bvhJoint.name && g.transform.root.gameObject == anim.gameObject);
+            var trans = FindObjectsOfType<GameObject>().FirstOrDefault(g => g.name == bvhJoint.name && g.transform.root.gameObject == gameObject);
             if (trans)
             {
                 jointTransforms[bvhJoint.name] = trans.transform;
@@ -280,7 +279,7 @@ public class BVHAnimator : MonoBehaviour
             }
             else if (!useGlobalRotations)
             {
-                frameQuat = anim.transform.rotation * frameQuat;
+                frameQuat = transform.rotation * frameQuat;
             }
 
             parentRotation[joint.name] = frameQuat;

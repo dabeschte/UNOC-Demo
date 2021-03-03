@@ -121,122 +121,80 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &37186485
+--- !u!1001 &493444053
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -8679921383154817045, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -8679921383154817045, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -8679921383154817045, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -8679921383154817045, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -8679921383154817045, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -8679921383154817045, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -8679921383154817045, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -8679921383154817045, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -8679921383154817045, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -8679921383154817045, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -8679921383154817045, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -4491248256653656209, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: -7182278179041154550, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 994dd8492db69244b8efdd7f421c79ac, type: 2}
-    - target: {fileID: 919132149155446097, guid: 8007c841ec003c7469bf4b7296433d6f,
+    - target: {fileID: 919132149155446097, guid: d5871d09deab16d40b034562fcc86787,
         type: 3}
       propertyPath: m_Name
-      value: blue_man_s1
+      value: blueman
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8007c841ec003c7469bf4b7296433d6f, type: 3}
---- !u!1 &37186486 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8007c841ec003c7469bf4b7296433d6f,
-    type: 3}
-  m_PrefabInstance: {fileID: 37186485}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &37186487 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 8007c841ec003c7469bf4b7296433d6f,
-    type: 3}
-  m_PrefabInstance: {fileID: 37186485}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &37186488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 37186486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee889e48d075fe9489988260dfc54049, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  autoPlay: 1
-  applyRootTransform: 1
-  applyPosition: 1
-  convertOnTheFly: 1
-  useGlobalRotations: 1
-  useGlobalPositions: 1
-  applyInitialRotation: 1
-  scaleBones: 1
-  interpolate: 1
-  positionScale: 100
-  path: D:\Seafile\FB Backup\NIMC\NIMC201911012\merged bvh\TABLE_sit_grabCup_lookAtCup_drinkCup_putDownCup_merged.bvh
-  anim: {fileID: 37186487}
-  fps: 0
-  frames: 0
-  currentFrame: 0
-  speed: 1
-  loadFromResources: 1
-  resourceName: TABLE_sit_grabCup_lookAtCup_drinkCup_putDownCup_merged_reduced
+  m_SourcePrefab: {fileID: 100100000, guid: d5871d09deab16d40b034562fcc86787, type: 3}
 --- !u!1 &799463215
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,8 +272,43 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &885481934 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d5871d09deab16d40b034562fcc86787,
+    type: 3}
+  m_PrefabInstance: {fileID: 493444053}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &885481935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885481934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee889e48d075fe9489988260dfc54049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoPlay: 1
+  applyRootTransform: 1
+  applyPosition: 1
+  convertOnTheFly: 1
+  useGlobalRotations: 1
+  useGlobalPositions: 1
+  applyInitialRotation: 1
+  scaleBones: 1
+  interpolate: 1
+  positionScale: 100
+  path: D:\Seafile\FB Backup\NIMC\NIMC201911013\merged bvh\NO-TABLE_sit_1_merged.bvh
+  fps: 0
+  frames: 0
+  currentFrame: 0
+  speed: 1
+  loadFromResources: 1
+  resourceName: TABLE_sit_grabCup_lookAtCup_drinkCup_putDownCup_merged_reduced
 --- !u!1 &1114628613
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +337,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1687258581
 GameObject:

@@ -6,4 +6,6 @@ obj/
 *.sln
 *.txt
 .vs/
-build/
+Assets/
+Packages/
+ProjectSettings/

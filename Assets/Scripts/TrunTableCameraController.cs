@@ -18,16 +18,16 @@ public class TrunTableCameraController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
+//        if (Input.GetMouseButtonDown(0))
+//        {
+//            Cursor.lockState = CursorLockMode.Locked;
+//        }
+//
+//        if (Input.GetMouseButtonUp(0))
+//        {
+//            Cursor.visible = true;
+//            Cursor.lockState = CursorLockMode.None;
+//        }
 
         if (Input.GetMouseButton(0))
         {

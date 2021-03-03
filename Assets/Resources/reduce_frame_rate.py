@@ -3,9 +3,9 @@ import os
 source_framerate = 120
 target_framerate = 15
 frame_time = 1.0 / target_framerate
-skip_frames = 300
-file = "TABLE_sit_grabCup_lookAtCup_drinkCup_putDownCup_merged.txt"
-out_file = "TABLE_sit_grabCup_lookAtCup_drinkCup_putDownCup_merged_reduced.txt"
+skip_frames = 1050
+file = "TABLE_stand_grabCup_lookAtCup_drinkCup_putDownCup_merged.txt"
+out_file = "TABLE_stand_grabCup_lookAtCup_drinkCup_putDownCup_merged_reduced.txt"
 
 with open(file, "r") as f:
     text = f.readlines()

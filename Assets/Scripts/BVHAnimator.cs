@@ -424,6 +424,13 @@ public class BVHAnimator : MonoBehaviour
         getTPosePositions();
     }
 
+    public void loadAnimFromResources(string name)
+    {
+        loadAnim(name, true);
+        animScaledTime = 0.0f;
+        isPlaying = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -431,14 +438,15 @@ public class BVHAnimator : MonoBehaviour
         {
             var oldFrame = currentFrame;
             animScaledTime += Time.deltaTime * speed;
-            currentFrame = (int) (fps * (animScaledTime - animStartTime));
-            float t_interpolate = (fps * (animScaledTime - animStartTime)) % 1.0f;
+            currentFrame = (int) (fps * animScaledTime);
+            float t_interpolate = (fps * animScaledTime) % 1.0f;
             currentFrame = Math.Min(currentFrame, frames - 1);
             currentFrame = Math.Max(currentFrame, 0);
-            if (currentFrame == frames - 1 && oldFrame != 0)
+            if (currentFrame >= frames - 1 && oldFrame != 0)
             {
                 currentFrame = 0;
                 animStartTime = Time.time;
+                animScaledTime = Time.time;
                 Update();
             }
             applyFrame(currentFrame, t_interpolate);

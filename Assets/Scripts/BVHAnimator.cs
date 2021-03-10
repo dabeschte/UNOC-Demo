@@ -72,7 +72,6 @@ public class BVHAnimator : MonoBehaviour
     public bool interpolate = true;
     public float positionScale = 1;
     public string path;
-    public Animator anim;
     [ReadOnly] public int fps = 0;
     [ReadOnly] public int frames = 0;
     public int currentFrame = 0;
@@ -84,8 +83,8 @@ public class BVHAnimator : MonoBehaviour
     Dictionary<string, Vector3> tposePos = new Dictionary<string, Vector3>();
     Dictionary<string, Transform> jointTransforms = new Dictionary<string, Transform>();
     BVHJoint root;
+    public int skipFrames = 0;
 
-    float animStartTime = 0.0f;
     float animScaledTime = 0.0f;
     public bool loadFromResources = true;
     public string resourceName = "TABLE_sit_grabCup_lookAtCup_drinkCup_putDownCup_merged.bvh";
@@ -198,7 +197,7 @@ public class BVHAnimator : MonoBehaviour
     { 
         foreach (var bvhJoint in joints.Values)
         {
-            var trans = FindObjectsOfType<GameObject>().FirstOrDefault(g => g.name == bvhJoint.name && g.transform.root.gameObject == anim.gameObject);
+            var trans = FindObjectsOfType<GameObject>().FirstOrDefault(g => g.name == bvhJoint.name && g.transform.root.gameObject == gameObject);
             if (trans)
             {
                 jointTransforms[bvhJoint.name] = trans.transform;
@@ -280,7 +279,7 @@ public class BVHAnimator : MonoBehaviour
             }
             else if (!useGlobalRotations)
             {
-                frameQuat = anim.transform.rotation * frameQuat;
+                frameQuat = transform.rotation * frameQuat;
             }
 
             parentRotation[joint.name] = frameQuat;
@@ -347,15 +346,49 @@ public class BVHAnimator : MonoBehaviour
         return framePos;
     }
 
-    private static Quaternion getFrameQuat(BVHJoint joint, float[] frameVals)
+    private Vector3 getFramePos(BVHJoint joint, int frame)
+    {
+        CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+        var splitArr = Regex.Split(valStrings[frame].TrimStart().TrimEnd(), @"\s+");
+
+        var frameVals = convertOnTheFly
+            ? Array.ConvertAll(splitArr, float.Parse)
+            : vals[frame];
+
+        var framePos = Vector3.zero;
+        for (int i = 0; i < joint.channels.Count; i++)
+        {
+            var c = joint.channels[i];
+            var v = frameVals[joint.id0 + i] / positionScale;
+            var p = Vector3.zero;
+            switch (c)
+            {
+                case BVHJoint.Channel.Xposition:
+                    p = new Vector3(-v, 0, 0);
+                    break;
+                case BVHJoint.Channel.Yposition:
+                    p = new Vector3(0, v, 0);
+                    break;
+                case BVHJoint.Channel.Zposition:
+                    p = new Vector3(0, 0, v);
+                    break;
+            }
+
+            framePos = framePos + p;
+        }
+
+        return framePos;
+    }
+
+    private Quaternion getFrameQuat(BVHJoint joint, float[] frameVals)
     {
         var frameQuat = Quaternion.identity;
-
         for (int i = 0; i < joint.channels.Count; i++)
         {
             var c = joint.channels[i];
             var v = frameVals[joint.id0 + i];
             var q = Quaternion.identity;
+
             switch (c)
             {
                 case BVHJoint.Channel.Xrotation:
@@ -377,7 +410,48 @@ public class BVHAnimator : MonoBehaviour
 
     void scaleAvatarBones()
     { 
-        // TODO
+        var excludeKeys = new List<string>{"b_neck", "b_head"};
+
+        foreach(var joint_entry in joints)
+        {
+            var joint_name = joint_entry.Key;
+            var joint = joint_entry.Value;
+
+            if (excludeKeys.Contains(joint_name))
+                continue;
+
+            if (!jointTransforms.ContainsKey(joint_name))
+            {
+                print("JointTransform " + joint_name + " not found");
+                continue;
+            }
+
+            if (joint.parent == null && joint_name == "b_root")
+            {
+                var targetDistance = getFramePos(joint, 0).y;
+                var currentDistance = (jointTransforms[joint_name].parent.position - jointTransforms[joint_name].position).magnitude;
+                var scale = targetDistance / currentDistance;
+                jointTransforms[joint_name].parent.localScale *= scale;
+            }
+
+            else if (joint.parent != null && jointTransforms.ContainsKey(joint.parent.name))
+            {
+                print("self: " + joint_name + " parent " + joint.parent.name);
+                var targetDistance = joint.offset.magnitude / positionScale;
+                var currentDistance = (jointTransforms[joint.parent.name].position - jointTransforms[joint_name].position).magnitude;
+                var scale = targetDistance / currentDistance;
+                var localScale = jointTransforms[joint.parent.name].localScale;
+//                localScale.x *= scale;
+                localScale *= scale;
+                jointTransforms[joint.parent.name].localScale = localScale;
+                var newDistance = (jointTransforms[joint.parent.name].position - jointTransforms[joint_name].position).magnitude;
+                print("before " + currentDistance + " target " + targetDistance + " now " + newDistance);
+
+            } else if (joint.parent != null)
+            {
+                print("JointTransform " + joint.parent.name + " not found");
+            }
+        }
     }
 
     public void loadAnim(string animPath, bool fromResources=false)
@@ -398,8 +472,6 @@ public class BVHAnimator : MonoBehaviour
 
         parseHierarchy(hierarchy);
         parseMotion(motion);
-        if (scaleBones)
-            scaleAvatarBones();
     }
 
     // Start is called before the first frame update
@@ -408,8 +480,7 @@ public class BVHAnimator : MonoBehaviour
         if (autoPlay)
         {
             isPlaying = true;
-            animStartTime = Time.time;
-            animScaledTime = animStartTime;
+            animScaledTime = 0.0f;
         }
 
         if (loadFromResources)
@@ -420,9 +491,26 @@ public class BVHAnimator : MonoBehaviour
         {
             loadAnim(path, false);
         }
+
+        if (skipFrames > 0)
+        {
+            animScaledTime = (float)skipFrames / fps;
+        }
+
         getJointTransforms();
+
+        if (scaleBones)
+            scaleAvatarBones();
+
         getTPoseRotations();
         getTPosePositions();
+    }
+
+    public void loadAnimFromResources(string name)
+    {
+        loadAnim(name, true);
+        animScaledTime = 0.0f;
+        isPlaying = true;
     }
 
     // Update is called once per frame
@@ -432,14 +520,14 @@ public class BVHAnimator : MonoBehaviour
         {
             var oldFrame = currentFrame;
             animScaledTime += Time.deltaTime * speed;
-            currentFrame = (int) (fps * (animScaledTime - animStartTime));
-            float t_interpolate = (fps * (animScaledTime - animStartTime)) % 1.0f;
+            currentFrame = (int) (fps * animScaledTime);
+            float t_interpolate = (fps * animScaledTime) % 1.0f;
             currentFrame = Math.Min(currentFrame, frames - 1);
             currentFrame = Math.Max(currentFrame, 0);
-            if (currentFrame == frames - 1 && oldFrame != 0)
+            if (currentFrame >= frames - 1 && oldFrame != 0)
             {
                 currentFrame = 0;
-                animStartTime = Time.time;
+                animScaledTime = 0.0f;
                 Update();
             }
             applyFrame(currentFrame, t_interpolate);
